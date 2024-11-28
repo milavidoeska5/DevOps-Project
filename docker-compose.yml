@@ -1,0 +1,26 @@
+services:
+  app:
+    image: grocery-shopping-app
+    build:
+      context: .
+    container_name: grocery-shopping-app
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=3000
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mongo:latest
+    container_name: grocery-shopping-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: always
+
+volumes:
+  mongo-data:
