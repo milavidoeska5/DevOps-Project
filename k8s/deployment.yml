@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grocery-shopping-app
+  namespace: grocery-shopping-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: grocery-shopping-app
+  template:
+    metadata:
+      labels:
+        app: grocery-shopping-app
+    spec:
+      containers:
+      - name: grocery-shopping-app
+        image: milavidoeska16/grocery-shopping-app:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: PORT
+        - name: MONGO_URI
+          valueFrom:
+            secretKeyRef:
+              name: app-secret
+              key: MONGO_URI
