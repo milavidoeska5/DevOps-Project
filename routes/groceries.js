@@ -4,8 +4,6 @@ const GroceryItem = require('../models/GroceryItem');
 
 router.get('/', async (req, res) => {
     try {
-        let htmlContent = '<h1>Grocery List:</h1><ul>';
-        res.send(htmlContent);
         const groceryItems = await GroceryItem.find(); 
         res.json(groceryItems); 
     } catch (error) {
